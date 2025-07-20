@@ -1,35 +1,35 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import Form from "@components/Form";
+import { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Form from '@components/Form';
 
 const UpdatePrompt = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const promptId = searchParams.get("id");
+  const promptId = searchParams.get('id');
 
-  const [post, setPost] = useState({ prompt: "", tag: "" });
+  const [post, setPost] = useState({ prompt: '', tag: '' });
   const [submitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const getPromptDetails = async () => {
       if (!promptId) {
-        console.error("No prompt ID found in URL");
+        console.error('No prompt ID found in URL');
         return;
       }
 
       try {
         const response = await fetch(`/api/prompt/${promptId}`);
-        if (!response.ok) throw new Error("Failed to fetch prompt");
+        if (!response.ok) throw new Error('Failed to fetch prompt');
 
         const data = await response.json();
         setPost({
-          prompt: data.prompt || "",
-          tag: data.tag || "",
+          prompt: data.prompt || '',
+          tag: data.tag || '',
         });
       } catch (error) {
-        console.error("Error fetching prompt:", error);
+        console.error('Error fetching prompt:', error);
       }
     };
 
@@ -41,15 +41,15 @@ const UpdatePrompt = () => {
     setIsSubmitting(true);
 
     if (!promptId) {
-      alert("Missing prompt ID");
+      alert('Missing prompt ID');
       return;
     }
 
     try {
       const response = await fetch(`/api/prompt/${promptId}`, {
-        method: "PATCH",
+        method: 'PATCH',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           prompt: post.prompt,
@@ -58,12 +58,12 @@ const UpdatePrompt = () => {
       });
 
       if (response.ok) {
-        router.push("/");
+        router.push('/');
       } else {
-        console.error("Failed to update prompt");
+        console.error('Failed to update prompt');
       }
     } catch (error) {
-      console.error("Error updating prompt:", error);
+      console.error('Error updating prompt:', error);
     } finally {
       setIsSubmitting(false);
     }

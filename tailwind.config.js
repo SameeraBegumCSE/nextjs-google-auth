@@ -1,23 +1,21 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
- content: [
+  content: [
     "./app/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
-    "./styles/**/*.{css}"
+    "./styles/**/*.css"  // <-- Fixed
   ],
   theme: {
     extend: {
-      fontFamily:{
+      fontFamily: {
         sans: ['Inter', 'sans-serif'],
-    inter: ['Inter', 'sans-serif'], // optional
-        satoshi:['Satoshi','sans-serif'],
-        inter:['Inter','sans-serif'],
+        satoshi: ['Satoshi', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],  // This is duplicated
       },
-      colors:{
-        'primary-orange':'#FF5722',
+      colors: {
+        'primary-orange': '#FF5722',
       }
     },
   },
   plugins: [],
 }
-
